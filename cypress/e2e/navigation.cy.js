@@ -30,7 +30,18 @@ describe("Navigation", () => {
       cy.url().should("include", `/`);
     });
   });
+
   describe("From the favourites page to a movie's details", () => {
-    // TODO
+    beforeEach(() => {
+      cy.visit("/");
+      cy.get("button[aria-label='add to favorites']").eq(0).click(); 
+      cy.get("button[aria-label='add to favorites']").eq(1).click(); 
+      cy.get("button").contains("Favorites").click();
+    });
+  
+    it("Should navigate to the movie details page when a movie is clicked", () => {
+      cy.get(".MuiCard-root").first().click();
+      cy.url().should("include", `/movies/`); 
+    });
   });
 });
